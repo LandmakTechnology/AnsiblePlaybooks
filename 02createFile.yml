@@ -1,0 +1,8 @@
+---
+- hosts: appServers
+  tasks:
+   - name: Create a file
+     file:
+      path: /tmp/Mithun.txt 
+      state: touch
+...
