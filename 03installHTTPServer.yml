@@ -1,5 +1,4 @@
 #This playbbok will install HTTP server and will not start the server.
-
 ---
 - hosts: all
   become: true
