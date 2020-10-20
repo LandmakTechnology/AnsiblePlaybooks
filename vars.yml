@@ -1,0 +1,7 @@
+- hosts: dbservers
+  vars:
+    name: From Playbook
+  tasks:
+  - name: vars demo
+    debug:
+      msg: "{{name}}"
