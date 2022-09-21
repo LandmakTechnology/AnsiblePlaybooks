@@ -1,0 +1,9 @@
+- hosts: appservers
+become: true
+tasks:
+- name: deploy local user ssh key
+  authorized_key:
+  user: ansible
+  state: present 
+  manage_dir: true
+  key: "{{lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
