@@ -1,6 +1,6 @@
 - hosts: dbservers
   vars:
-    name: From Playbook
+    name: From Play_book
   tasks:
   - name: vars demo
     debug:
