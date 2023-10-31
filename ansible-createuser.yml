@@ -1,6 +1,7 @@
 # ansible <group/host Name> -m ping -u <userName> --private-key=~/devops.pem
 # ansible-playbook -b ansible-createuser.yml -u <userName> --private-key=~/devops.pem
 - hosts: all
+  become: true                # I did  a change here to become
   tasks:
   - name: Create Ansible User
     user:
@@ -8,7 +9,7 @@
       create_home: true
       shell: /bin/bash
       comment: "Ansible Management Account"
-      expires: -1
+      expires: null                                                # and the next change was here changing it from -1  to null
       password: "{{ 'DevOps@2020' | password_hash('sha512','A512') }}"
   - name: Deploy Local User SSH Key
     authorized_key:
@@ -19,13 +20,13 @@
   - name: Setup Sudo Access for Ansible User
     copy:
       dest: /etc/sudoers.d/ansible
-      content: 'ansible ALL=(ALL) NOPASSWD: ALL' 
+      content: 'ansible ALL=(ALL) NOPASSWD: ALL'
       validate: /usr/sbin/visudo -cf %s
-  -  name: Disable Password Authentication
+  -  name: Enable Password Authentication
      lineinfile:
         dest=/etc/ssh/sshd_config
         regexp='^PasswordAuthentication'
-        line="PasswordAuthentication no"
+        line="PasswordAuthentication yes"
         state=present
         backup=yes
      notify:
